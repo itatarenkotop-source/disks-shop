@@ -336,3 +336,93 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   .fc--wa { animation: none; }
   .hero { background-attachment: scroll; }
 }
+/* ===== ЭФФЕКТЫ v3 ===== */
+
+/* --- Кастомный курсор-кружок (по желанию, для десктопа) --- */
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 18px; height: 18px;
+  border: 2px solid rgba(255,255,255,.7);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width .25s, height .25s, background .25s, border-color .25s;
+  mix-blend-mode: difference;
+}
+.cursor-dot.is-hover {
+  width: 42px; height: 42px;
+  background: rgba(255,255,255,.15);
+}
+
+/* --- Прогресс-бар прокрутки сверху --- */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 4px;
+  width: 0%;
+  background: linear-gradient(90deg, #e63946, #ff8c42);
+  z-index: 10000;
+  transition: width .1s linear;
+}
+
+/* --- Кнопка "наверх" --- */
+.to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 90px;
+  width: 48px; height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all .35s cubic-bezier(.2,.7,.2,1);
+  z-index: 998;
+  box-shadow: 0 6px 20px rgba(0,0,0,.25);
+}
+.to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.to-top:hover {
+  background: #e63946;
+  transform: translateY(-4px) scale(1.08);
+}
+
+/* --- 3D-наклон карточек при наведении --- */
+.card {
+  transition: transform .25s ease, box-shadow .25s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* --- Анимированное подчёркивание пунктов меню --- */
+.nav a {
+  position: relative;
+}
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -4px;
+  width: 0; height: 2px;
+  background: #e63946;
+  transition: width .3s ease;
+}
+.nav a:hover::after {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .cursor-dot { display: none; } /* на мобильных курсор не нужен */
+  .to-top { right: 16px; bottom: 80px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card { transform: none !important; }
+}
