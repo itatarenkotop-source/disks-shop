@@ -40,9 +40,6 @@ function smooth() {
     target = window.scrollY;
     current += (target - current) * ease;
     content.style.transform = `translateY(${-current}px)`;
-  } else {
-    current = window.scrollY;
-    content.style.transform = 'none';
   }
 
   /* ПАРАЛЛАКС */
@@ -57,12 +54,11 @@ function smooth() {
 }
 requestAnimationFrame(smooth);
 
-/* ===== REVEAL ПО СКРОЛЛУ (Intersection Observer) ===== */
+/* ===== REVEAL ПО СКРОЛЛУ ===== */
 const io = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('in-view');
-      // запускаем дочерние [data-reveal]
       entry.target.querySelectorAll('[data-reveal]').forEach((el, i) => {
         el.style.transitionDelay = (i * 0.08) + 's';
         el.classList.add('in-view');
@@ -75,7 +71,6 @@ const io = new IntersectionObserver((entries) => {
 document.querySelectorAll(
   '.section-head, .about__text, .footer__cta, .card, [data-reveal-words]'
 ).forEach(el => io.observe(el));
-
 /* раскрытие слов в about */
 const ioWords = new IntersectionObserver((entries) => {
   entries.forEach(e => {
@@ -103,7 +98,7 @@ const cursor = document.querySelector('.cursor');
 const dot = document.querySelector('.cursor-dot');
 let mx = 0, my = 0, cx = 0, cy = 0;
 
-if (!isMobile) {
+if (!isMobile && cursor && dot) {
   window.addEventListener('mousemove', e => {
     mx = e.clientX;
     my = e.clientY;
@@ -115,4 +110,44 @@ if (!isMobile) {
     cx += (mx - cx) * 0.15;
     cy += (my - cy) * 0.15;
     cursor.style.left = cx + 'px';
-    cursor.style.top = cy +
+    cursor.style.top = cy + 'px';
+    requestAnimationFrame(cursorLoop);
+  }
+  cursorLoop();
+
+  /* увеличение курсора на ссылках и карточках */
+  document.querySelectorAll('a, button, .card').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('cursor--big'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('cursor--big'));
+  });
+}
+
+/* ===== ПЛАВНЫЙ ПЕРЕХОД ПО ЯКОРНЫМ ССЫЛКАМ ===== */
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    const id = link.getAttribute('href');
+    if (id === '#' || id.length < 2) return;
+    const targetEl = document.querySelector(id);
+    if (targetEl) {
+      e.preventDefault();
+      const top = targetEl.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+
+/* ===== АКТИВНЫЙ ПУНКТ МЕНЮ ПРИ СКРОЛЛЕ ===== */
+const navLinks = document.querySelectorAll('.nav a');
+const sections = document.querySelectorAll('section[id]');
+
+const navIO = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.getAttribute('id');
+      navLinks.forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { threshold: 0.5 });
+sections.forEach(s => navIO.observe(s));
