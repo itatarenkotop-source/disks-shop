@@ -1,174 +1,182 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURUM WHEELS — Premium Forged Wheels</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEREK — Premium Wheels</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- ЗАГРУЗОЧНЫЙ ЭКРАН -->
-    <div class="preloader" id="preloader">
-        <div class="preloader-logo">AURUM</div>
+<!-- Шум / зерно -->
+<div class="grain"></div>
+
+<!-- Кастомный курсор -->
+<div class="cursor"></div>
+<div class="cursor-dot"></div>
+
+<!-- Прелоадер -->
+<div class="preloader">
+  <div class="preloader__text" data-count>00</div>
+</div>
+
+<!-- Контейнер для инерционного скролла -->
+<div id="scroll-content">
+
+  <!-- Хедер -->
+  <header class="header">
+    <a href="#" class="logo" data-magnetic>TEREK<span>.</span></a>
+    <nav class="nav">
+      <a href="#catalog" data-magnetic>Коллекция</a>
+      <a href="#about" data-magnetic>О нас</a>
+      <a href="#contact" data-magnetic>Контакты</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg" data-parallax="0.25"></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <h1 class="hero__title">
+        <span class="line"><span data-reveal>КОЛЁСНЫЕ</span></span>
+        <span class="line"><span data-reveal>ДИСКИ</span></span>
+        <span class="line accent"><span data-reveal>ПРЕМИУМ</span></span>
+      </h1>
+      <p class="hero__sub" data-reveal>Эксклюзивные литые и кованые диски.<br>Стиль, который говорит за тебя.</p>
+      <a href="#catalog" class="btn-scroll" data-magnetic data-reveal>
+        <span>Смотреть коллекцию</span>
+        <i></i>
+      </a>
+    </div>
+    <div class="hero__marquee">
+      <div class="marquee__track">
+        <span>FORGED · CAST · LUXURY · PERFORMANCE · TEREK · FORGED · CAST · LUXURY · PERFORMANCE · TEREK ·</span>
+        <span>FORGED · CAST · LUXURY · PERFORMANCE · TEREK · FORGED · CAST · LUXURY · PERFORMANCE · TEREK ·</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- КАТАЛОГ -->
+  <section class="catalog" id="catalog">
+    <div class="section-head">
+      <span class="section-num" data-reveal>01 / Коллекция</span>
+      <h2 class="section-title"><span data-reveal>Избранное</span></h2>
     </div>
 
-    <!-- КАСТОМНЫЙ КУРСОР -->
-    <div class="cursor-dot" id="cursor-dot"></div>
-    <div class="cursor-ring" id="cursor-ring"></div>
+    <div class="grid">
+      <!-- Карточка 1 (большая) -->
+      <article class="card card--big" data-tilt>
+        <div class="card__img" data-parallax="0.08">
+          <img src="img/disk1.jpg" alt="Work Emotion">
+        </div>
+        <div class="card__glow"></div>
+        <div class="card__info">
+          <span class="card__tag">FORGED</span>
+          <h3>Work Emotion T7R</h3>
+          <div class="card__bottom">
+            <span class="card__price">от 89 000 ₽</span>
+            <button class="card__add" data-magnetic><span>+</span></button>
+          </div>
+        </div>
+      </article>
 
-    <div class="noise"></div>
+      <!-- Карточка 2 -->
+      <article class="card" data-tilt>
+        <div class="card__img" data-parallax="0.08">
+          <img src="img/disk2.jpg" alt="BBS LM">
+        </div>
+        <div class="card__glow"></div>
+        <div class="card__info">
+          <span class="card__tag">CAST</span>
+          <h3>BBS LM Series</h3>
+          <div class="card__bottom">
+            <span class="card__price">от 64 000 ₽</span>
+            <button class="card__add" data-magnetic><span>+</span></button>
+          </div>
+        </div>
+      </article>
 
-    <!-- ФОН-ИЗОБРАЖЕНИЕ -->
-    <div class="video-bg">
-        <img src="hero.jpg" alt="фон" class="hero-bg-img">
-        <div class="video-tint"></div>
+      <!-- Карточка 3 -->
+      <article class="card card--offset" data-tilt>
+        <div class="card__img" data-parallax="0.08">
+          <img src="img/disk3.jpg" alt="Vossen">
+        </div>
+        <div class="card__glow"></div>
+        <div class="card__info">
+          <span class="card__tag">LUXURY</span>
+          <h3>Vossen HF-5</h3>
+          <div class="card__bottom">
+            <span class="card__price">от 112 000 ₽</span>
+            <button class="card__add" data-magnetic><span>+</span></button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Карточка 4 (большая) -->
+      <article class="card card--big" data-tilt>
+        <div class="card__img" data-parallax="0.08">
+          <img src="img/disk4.jpg" alt="Rays Volk">
+        </div>
+        <div class="card__glow"></div>
+        <div class="card__info">
+          <span class="card__tag">FORGED</span>
+          <h3>Rays Volk TE37</h3>
+          <div class="card__bottom">
+            <span class="card__price">от 98 000 ₽</span>
+            <button class="card__add" data-magnetic><span>+</span></button>
+          </div>
+        </div>
+      </article>
     </div>
+  </section>
 
-    <!-- ШАПКА -->
-    <header class="header" id="header">
-        <div class="container header-inner">
-            <div class="logo">AURUM</div>
-            <nav class="nav-links">
-                <a href="#catalog">Коллекция</a>
-                <a href="#philosophy">Философия</a>
-                <a href="#order">Подбор</a>
-                <a href="#contacts">Контакты</a>
-            </nav>
-            <button class="cart-btn" onclick="toggleCart()">
-                Корзина <span class="cart-line">/</span> <span id="cart-count">0</span>
-            </button>
-        </div>
-    </header>
-
-    <!-- HERO -->
-    <section class="hero panel">
-        <div class="container hero-content">
-            <div class="hero-label split">Forged in Asia · Driven Worldwide</div>
-            <h1 class="hero-title">
-                <span class="line"><span id="typed-1"></span></span>
-                <span class="line"><span id="typed-2"></span></span>
-            </h1>
-            <p class="hero-sub split">Кованые и литые диски премиум-класса из Японии, Кореи и Китая.<br>Инженерное совершенство для тех, кто чувствует дорогу.</p>
-            <div class="hero-buttons split">
-                <a href="#catalog" class="btn btn-primary">Смотреть коллекцию</a>
-                <a href="#order" class="btn btn-outline">Индивидуальный подбор</a>
-            </div>
-        </div>
-        <div class="scroll-line"><span></span></div>
-    </section>
-
-    <!-- МАРКИЗ-ЛЕНТА -->
-    <div class="marquee">
-        <div class="marquee-track">
-            <span>VOSSEN</span><span>·</span><span>BBS</span><span>·</span><span>RAYS</span><span>·</span><span>WORK</span><span>·</span><span>ENKEI</span><span>·</span><span>HRE</span><span>·</span>
-            <span>VOSSEN</span><span>·</span><span>BBS</span><span>·</span><span>RAYS</span><span>·</span><span>WORK</span><span>·</span><span>ENKEI</span><span>·</span><span>HRE</span><span>·</span>
-        </div>
+  <!-- О НАС -->
+  <section class="about" id="about">
+    <div class="section-head">
+      <span class="section-num" data-reveal>02 / О нас</span>
     </div>
+    <p class="about__text">
+      <span data-reveal-words>Мы подбираем диски, которые превращают автомобиль в произведение искусства. Только проверенные бренды, оригинальное качество и безупречный стиль.</span>
+    </p>
+  </section>
 
-    <!-- КОЛЛЕКЦИЯ -->
-    <section id="catalog" class="section panel">
-        <div class="container">
-            <div class="section-head reveal">
-                <span class="section-num">01</span>
-                <h2 class="section-title">Коллекция</h2>
-            </div>
-            <p class="section-sub reveal">Каждый диск — результат точной инженерии и безупречного дизайна.</p>
+  <!-- КОНТАКТЫ / ФУТЕР -->
+  <footer class="footer" id="contact">
+    <h2 class="footer__cta"><span data-reveal>Готовы<br>заказать?</span></h2>
+    <div class="footer__grid">
+      <div class="footer__col">
+        <span class="footer__label">Адрес</span>
+        <p>Хабаровск,<br>ул. Вахова, 8В</p>
+      </div>
+      <div class="footer__col">
+        <span class="footer__label">Телефон</span>
+        <a href="tel:+79141719500">+7 (914) 171-95-00</a>
+      </div>
+      <div class="footer__col">
+        <span class="footer__label">Telegram</span>
+        <a href="https://t.me/Terek_s" target="_blank">@Terek_s</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2024 TEREK · Premium Wheels</span>
+    </div>
+  </footer>
 
-            <div class="filters reveal">
-                <select id="filter-diameter" onchange="filterProducts()">
-                    <option value="all">Все диаметры</option>
-                    <option value="15">R15</option>
-                    <option value="16">R16</option>
-                    <option value="17">R17</option>
-                    <option value="18">R18</option>
-                </select>
-                <select id="filter-type" onchange="filterProducts()">
-                    <option value="all">Все типы</option>
-                    <option value="Литые">Литые</option>
-                    <option value="Кованые">Кованые</option>
-                    <option value="Штампованные">Штампованные</option>
-                </select>
-            </div>
+</div>
 
-            <div class="products" id="products"></div>
-        </div>
-    </section>
+<!-- Плавающие кнопки связи -->
+<div class="float-contacts">
+  <a href="https://t.me/Terek_s" target="_blank" class="fc fc--tg" data-magnetic aria-label="Telegram">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+  </a>
+  <a href="https://wa.me/79141719500" target="_blank" class="fc fc--wa" data-magnetic aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.6.2-.2.3-.7.9-.8 1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.2s1 2.6 1.1 2.8c.2.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2"/></svg>
+  </a>
+</div>
 
-    <!-- ФИЛОСОФИЯ -->
-    <section id="philosophy" class="section philosophy panel">
-        <div class="container philosophy-grid">
-            <div class="philosophy-text reveal">
-                <span class="section-num">02</span>
-                <h2 class="section-title">Философия совершенства</h2>
-                <p>Мы работаем напрямую с заводами Азии, где традиции ковки металла сочетаются с передовыми технологиями. Каждый диск проходит многоступенчатый контроль качества.</p>
-                <div class="stats">
-                    <div class="stat"><span class="stat-num" data-target="12">0</span><span class="stat-label">лет на рынке</span></div>
-                    <div class="stat"><span class="stat-num" data-target="8500">0</span><span class="stat-label">довольных клиентов</span></div>
-                    <div class="stat"><span class="stat-num" data-target="100">0</span><span class="stat-label">% гарантия</span></div>
-                </div>
-            </div>
-            <div class="philosophy-features reveal">
-                <div class="feature"><h3>Прямые поставки</h3><p>Без посредников и переплат — напрямую от производителя.</p></div>
-                <div class="feature"><h3>Сертификация</h3><p>Каждая партия подтверждена сертификатами качества.</p></div>
-                <div class="feature"><h3>Доставка по РФ</h3><p>Бережная логистика в любой город за 3–7 дней.</p></div>
-                <div class="feature"><h3>Персональный подбор</h3><p>Эксперт подберёт диски точно под ваш автомобиль.</p></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ФОРМА -->
-    <section id="order" class="section panel">
-        <div class="container">
-            <div class="order-box reveal">
-                <div class="section-head" style="justify-content:center">
-                    <span class="section-num">03</span>
-                    <h2 class="section-title">Индивидуальный подбор</h2>
-                </div>
-                <p class="section-sub">Оставьте заявку — эксперт свяжется с вами в течение 15 минут.</p>
-                <form class="order-form" onsubmit="submitForm(event)">
-                    <input type="text" placeholder="Имя" required>
-                    <input type="tel" placeholder="Телефон" required>
-                    <input type="text" placeholder="Марка и модель автомобиля">
-                    <button type="submit" class="btn btn-primary full">Отправить заявку</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- ПОДВАЛ -->
-    <footer id="contacts" class="footer panel">
-        <div class="container footer-grid">
-            <div class="logo">AURUM</div>
-            <div class="footer-col">
-                <span>Контакты</span>
-                <p>+7 (900) 000-00-00</p>
-                <p>info@aurumwheels.ru</p>
-            </div>
-            <div class="footer-col">
-                <span>Режим работы</span>
-                <p>Пн–Вс: 09:00 — 21:00</p>
-                <p>Москва, ул. Примерная, 1</p>
-            </div>
-        </div>
-        <div class="container copy">© 2024 AURUM WHEELS. Premium Forged Wheels.</div>
-    </footer>
-
-    <!-- КОРЗИНА -->
-    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
-    <aside class="cart-sidebar" id="cart-sidebar">
-        <div class="cart-header">
-            <h3>Корзина</h3>
-            <button onclick="toggleCart()">Закрыть</button>
-        </div>
-        <div id="cart-items"></div>
-        <div class="cart-footer">
-            <div class="cart-total"><span>Итого</span><span id="cart-total">0 ₽</span></div>
-            <button class="btn btn-primary full" onclick="checkout()">Оформить заказ</button>
-        </div>
-    </aside>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
