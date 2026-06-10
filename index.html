@@ -16,6 +16,7 @@
     <nav class="nav">
       <a href="#catalog">Коллекция</a>
       <a href="#about">О нас</a>
+      <a href="#zayavka">Заявка</a>
       <a href="#contact">Контакты</a>
     </nav>
     <a href="tel:+79141719500" class="header__phone">+7 (914) 171-95-00</a>
@@ -31,7 +32,7 @@
     <p class="hero__sub">Кованые и литые диски премиальных брендов. Оригинальное качество, безупречный стиль и установка под ключ.</p>
     <div class="hero__actions">
       <a href="#catalog" class="btn btn--primary">Смотреть коллекцию</a>
-      <a href="https://wa.me/79141719500" target="_blank" class="btn btn--ghost">Получить консультацию</a>
+      <a href="#zayavka" class="btn btn--ghost">Получить консультацию</a>
     </div>
   </div>
 </section>
@@ -76,7 +77,7 @@
           <p class="card__desc">Японская ковка для спортивного стиля.</p>
           <div class="card__foot">
             <span class="card__price">от 89 000 ₽</span>
-            <a href="https://wa.me/79141719500" target="_blank" class="card__btn">Заказать</a>
+            <a href="#zayavka" class="card__btn">Заказать</a>
           </div>
         </div>
       </article>
@@ -89,7 +90,7 @@
           <p class="card__desc">Легендарная классика на все времена.</p>
           <div class="card__foot">
             <span class="card__price">от 64 000 ₽</span>
-            <a href="https://wa.me/79141719500" target="_blank" class="card__btn">Заказать</a>
+            <a href="#zayavka" class="card__btn">Заказать</a>
           </div>
         </div>
       </article>
@@ -102,7 +103,7 @@
           <p class="card__desc">Премиальный дизайн для статусных авто.</p>
           <div class="card__foot">
             <span class="card__price">от 112 000 ₽</span>
-            <a href="https://wa.me/79141719500" target="_blank" class="card__btn">Заказать</a>
+            <a href="#zayavka" class="card__btn">Заказать</a>
           </div>
         </div>
       </article>
@@ -115,7 +116,7 @@
           <p class="card__desc">Икона автоспорта и лёгкость на дороге.</p>
           <div class="card__foot">
             <span class="card__price">от 98 000 ₽</span>
-            <a href="https://wa.me/79141719500" target="_blank" class="card__btn">Заказать</a>
+            <a href="#zayavka" class="card__btn">Заказать</a>
           </div>
         </div>
       </article>
@@ -136,7 +137,55 @@
         <li>Профессиональная установка и балансировка</li>
         <li>Гарантия и сопровождение после покупки</li>
       </ul>
-      <a href="#contact" class="btn btn--primary">Связаться с нами</a>
+      <a href="#zayavka" class="btn btn--primary">Связаться с нами</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ФОРМА ЗАЯВКИ ===== -->
+<section class="lead" id="zayavka">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-tag">Заявка</span>
+      <h2 class="section-title">Оставьте заявку</h2>
+      <p class="section-desc">Подберём диски под ваш автомобиль и перезвоним в течение 15 минут.</p>
+    </div>
+
+    <form class="lead__form" id="leadForm" novalidate>
+      <div class="field">
+        <label for="name">Ваше имя</label>
+        <input type="text" id="name" name="name" placeholder="Иван" required>
+        <span class="err" data-for="name"></span>
+      </div>
+
+      <div class="field">
+        <label for="phone">Телефон</label>
+        <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+        <span class="err" data-for="phone"></span>
+      </div>
+
+      <div class="field">
+        <label for="interest">Что интересует</label>
+        <select id="interest" name="interest">
+          <option value="Литые">Литые диски</option>
+          <option value="Кованые">Кованые диски</option>
+          <option value="Консультация">Не знаю, нужна консультация</option>
+        </select>
+      </div>
+
+      <div class="field field--full">
+        <label for="comment">Комментарий <span class="opt">(необязательно)</span></label>
+        <textarea id="comment" name="comment" rows="3" placeholder="Марка авто, размер, пожелания..."></textarea>
+      </div>
+
+      <button type="submit" class="btn btn--primary lead__btn">Отправить заявку</button>
+      <p class="lead__note">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных</p>
+    </form>
+
+    <div class="lead__success" id="leadSuccess">
+      <div class="lead__success-icon">✓</div>
+      <h3>Спасибо!</h3>
+      <p>Мы получили вашу заявку и свяжемся с вами в ближайшее время.</p>
     </div>
   </div>
 </section>
