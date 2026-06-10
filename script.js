@@ -422,3 +422,35 @@ if (heroBlock && !document.querySelector('.scroll-hint')) {
 
   nums.forEach(n => io.observe(n));
 })();
+/* ===== ПРЕЛОАДЕР v7 ===== */
+(function preloader() {
+  // создаём прелоадер сразу
+  document.body.classList.add('loading');
+
+  const pre = document.createElement('div');
+  pre.className = 'preloader';
+  pre.innerHTML = `
+    <div class="preloader__logo">VELARI</div>
+    <div class="preloader__bar"><span></span></div>
+    <div class="preloader__num">0%</div>
+  `;
+  document.body.appendChild(pre);
+
+  // счётчик процентов
+  const num = pre.querySelector('.preloader__num');
+  let p = 0;
+  const counter = setInterval(() => {
+    p += Math.floor(Math.random() * 12) + 4;
+    if (p >= 100) { p = 100; clearInterval(counter); }
+    num.textContent = p + '%';
+  }, 130);
+
+  // прячем после загрузки
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      pre.classList.add('hide');
+      document.body.classList.remove('loading');
+      setTimeout(() => pre.remove(), 800);
+    }, 1900);
+  });
+})();
