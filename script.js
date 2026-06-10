@@ -87,3 +87,61 @@ document.querySelectorAll('.reveal').forEach(el => revealIO.observe(el));
     success.classList.add('show');
   });
 })();
+/* ===== ВАУ-ЭФФЕКТЫ ===== */
+
+// --- 1. Появление блоков при скролле ---
+const revealEls = document.querySelectorAll(
+  '.feature, .card, .section-head, .about__media, .about__content, .contact__lead, .contact__card'
+);
+revealEls.forEach(el => el.classList.add('reveal'));
+
+// поочерёдная задержка для карточек
+document.querySelectorAll('.grid .card').forEach((card, i) => {
+  card.style.setProperty('--d', (i * 0.12) + 's');
+});
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+revealEls.forEach(el => revealObserver.observe(el));
+
+
+// --- 2. Анимация цифр (накрутка от нуля) ---
+function animateNumber(el) {
+  const raw = el.textContent.trim();
+  // вытаскиваем число и "хвост" (+, %, ' лет' и т.п.)
+  const match = raw.match(/^(\d+)(.*)$/s);
+  if (!match) return;
+
+  const target = parseInt(match[1], 10);
+  const suffix = match[2];
+  const duration = 1400;
+  const start = performance.now();
+
+  function tick(now) {
+    const p = Math.min((now - start) / duration, 1);
+    // плавное замедление
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(target * eased) + suffix;
+    if (p < 1) requestAnimationFrame(tick);
+    else el.textContent = target + suffix;
+  }
+  requestAnimationFrame(tick);
+}
+
+const numObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateNumber(entry.target);
+      numObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.6 });
+
+document.querySelectorAll('.feature__num').forEach(el => numObserver.observe(el));
