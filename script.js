@@ -230,3 +230,16 @@ if (window.matchMedia('(min-width: 769px)').matches) {
     });
   });
 }
+/* ===== СТРЕЛКА "ЛИСТАЙ ВНИЗ" ===== */
+const heroBlock = document.querySelector('.hero');
+if (heroBlock && !document.querySelector('.scroll-hint')) {
+  const hint = document.createElement('div');
+  hint.className = 'scroll-hint';
+  hint.innerHTML = '⌄';
+  heroBlock.appendChild(hint);
+
+  hint.addEventListener('click', () => {
+    const next = heroBlock.nextElementSibling;
+    if (next) next.scrollIntoView({ behavior: 'smooth' });
+  });
+}
