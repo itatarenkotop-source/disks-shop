@@ -178,3 +178,68 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   .lead__form{grid-template-columns:1fr;gap:18px}
   .lead{padding:80px 0}
 }
+/* ===== ВАУ-ЭФФЕКТЫ ===== */
+
+/* --- Появление блоков при скролле --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(.2,.7,.2,1), transform 0.8s cubic-bezier(.2,.7,.2,1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Поочерёдное появление карточек */
+.grid .card.reveal { transition-delay: var(--d, 0s); }
+
+/* --- Блик-металл на карточках --- */
+.card__img {
+  position: relative;
+  overflow: hidden;
+}
+.card__img::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,.45) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  transform: skewX(-20deg);
+  transition: none;
+  pointer-events: none;
+  z-index: 2;
+}
+.card:hover .card__img::after {
+  animation: shine .9s ease;
+}
+@keyframes shine {
+  0%   { left: -75%; }
+  100% { left: 125%; }
+}
+
+/* --- Вращение диска на карточке --- */
+.card__img img {
+  transition: transform 1.1s cubic-bezier(.2,.7,.2,1);
+}
+.card:hover .card__img img {
+  transform: rotate(180deg) scale(1.06);
+}
+
+/* --- Лёгкое "дыхание" цифр после накрутки --- */
+.feature__num {
+  display: inline-block;
+}
+
+/* Уважение к настройкам пользователя */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .card:hover .card__img img { transform: none; }
+  .card:hover .card__img::after { animation: none; }
+}
