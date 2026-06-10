@@ -7,52 +7,44 @@ const ci = setInterval(() => {
   if (c >= 100) {
     c = 100;
     clearInterval(ci);
-    setTimeout(() => {
-      pre.classList.add('done');
-      revealHero();
-    }, 400);
+    setTimeout(() => { pre.classList.add('done'); revealHero(); }, 400);
   }
   counter.textContent = c < 10 ? '0' + c : c;
-}, 120);
+}, 80);
 
-/* ===== РАЗБИВКА ТЕКСТА НА СЛОВА (для about) ===== */
+/* подстраховка: показать всё через 4 сек, если завис */
+setTimeout(() => {
+  if (pre && !pre.classList.contains('done')) {
+    pre.classList.add('done');
+    revealHero();
+  }
+}, 4000);
+
+/* ===== РАЗБИВКА ТЕКСТА НА СЛОВА (about) ===== */
 document.querySelectorAll('[data-reveal-words]').forEach(el => {
   const words = el.textContent.trim().split(' ');
-  el.innerHTML = words
-    .map(w => `<span class="word"><i>${w}</i></span>`)
-    .join(' ');
+  el.innerHTML = words.map(w => `<span class="word"><i>${w}</i></span>`).join(' ');
 });
 
-/* ===== ИНЕРЦИОННЫЙ СКРОЛЛ ===== */
-const content = document.getElementById('scroll-content');
-let current = 0, target = 0;
-const ease = 0.08;
 const isMobile = window.matchMedia('(max-width:768px)').matches;
 
-function setHeight() {
-  document.body.style.height = content.getBoundingClientRect().height + 'px';
-}
-window.addEventListener('load', setHeight);
-window.addEventListener('resize', setHeight);
-
-function smooth() {
-  if (!isMobile) {
-    target = window.scrollY;
-    current += (target - current) * ease;
-    content.style.transform = `translateY(${-current}px)`;
+/* ===== ПАРАЛЛАКС ТОЛЬКО ДЛЯ HERO ===== */
+const heroBg = document.querySelector('.hero__bg');
+function parallaxLoop() {
+  if (heroBg && !isMobile) {
+    heroBg.style.transform = `translateY(${window.scrollY * 0.3}px) scale(1.15)`;
   }
-
-  /* ПАРАЛЛАКС */
-  document.querySelectorAll('[data-parallax]').forEach(el => {
-    const speed = parseFloat(el.getAttribute('data-parallax'));
-    const rect = el.getBoundingClientRect();
-    const offset = (rect.top + rect.height / 2 - window.innerHeight / 2) * speed;
-    el.style.transform = `translateY(${offset}px) scale(1.1)`;
-  });
-
-  requestAnimationFrame(smooth);
+  requestAnimationFrame(parallaxLoop);
 }
-requestAnimationFrame(smooth);
+requestAnimationFrame(parallaxLoop);
+
+/* ===== HERO REVEAL ===== */
+function revealHero() {
+  document.querySelectorAll('.hero [data-reveal]').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.1 + 0.2) + 's';
+    el.classList.add('in-view');
+  });
+}
 
 /* ===== REVEAL ПО СКРОЛЛУ ===== */
 const io = new IntersectionObserver((entries) => {
@@ -66,12 +58,12 @@ const io = new IntersectionObserver((entries) => {
       io.unobserve(entry.target);
     }
   });
-}, { threshold: 0.2 });
+}, { threshold: 0.15 });
 
-document.querySelectorAll(
-  '.section-head, .about__text, .footer__cta, .card, [data-reveal-words]'
-).forEach(el => io.observe(el));
-/* раскрытие слов в about */
+document.querySelectorAll('.section-head, .about__text, .footer__cta, .card')
+  .forEach(el => io.observe(el));
+
+/* ===== СЛОВА В ABOUT ===== */
 const ioWords = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -82,16 +74,8 @@ const ioWords = new IntersectionObserver((entries) => {
       ioWords.unobserve(e.target);
     }
   });
-}, { threshold: 0.3 });
+}, { threshold: 0.2 });
 document.querySelectorAll('[data-reveal-words]').forEach(el => ioWords.observe(el));
-
-/* ===== HERO REVEAL (после прелоадера) ===== */
-function revealHero() {
-  document.querySelectorAll('.hero [data-reveal]').forEach((el, i) => {
-    el.style.transitionDelay = (i * 0.1 + 0.2) + 's';
-    el.classList.add('in-view');
-  });
-}
 
 /* ===== КАСТОМНЫЙ КУРСОР ===== */
 const cursor = document.querySelector('.cursor');
@@ -100,12 +84,10 @@ let mx = 0, my = 0, cx = 0, cy = 0;
 
 if (!isMobile && cursor && dot) {
   window.addEventListener('mousemove', e => {
-    mx = e.clientX;
-    my = e.clientY;
+    mx = e.clientX; my = e.clientY;
     dot.style.left = mx + 'px';
     dot.style.top = my + 'px';
   });
-
   function cursorLoop() {
     cx += (mx - cx) * 0.15;
     cy += (my - cy) * 0.15;
@@ -115,14 +97,13 @@ if (!isMobile && cursor && dot) {
   }
   cursorLoop();
 
-  /* увеличение курсора на ссылках и карточках */
   document.querySelectorAll('a, button, .card').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('cursor--big'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('cursor--big'));
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
   });
 }
 
-/* ===== ПЛАВНЫЙ ПЕРЕХОД ПО ЯКОРНЫМ ССЫЛКАМ ===== */
+/* ===== ЯКОРНЫЕ ССЫЛКИ ===== */
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', e => {
     const id = link.getAttribute('href');
@@ -130,23 +111,19 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     const targetEl = document.querySelector(id);
     if (targetEl) {
       e.preventDefault();
-      const top = targetEl.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({ top, behavior: 'smooth' });
+      targetEl.scrollIntoView({ behavior: 'smooth' });
     }
   });
 });
 
-/* ===== АКТИВНЫЙ ПУНКТ МЕНЮ ПРИ СКРОЛЛЕ ===== */
+/* ===== АКТИВНЫЙ ПУНКТ МЕНЮ ===== */
 const navLinks = document.querySelectorAll('.nav a');
 const sections = document.querySelectorAll('section[id]');
-
 const navIO = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       const id = entry.target.getAttribute('id');
-      navLinks.forEach(l => {
-        l.classList.toggle('active', l.getAttribute('href') === '#' + id);
-      });
+      navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
     }
   });
 }, { threshold: 0.5 });
