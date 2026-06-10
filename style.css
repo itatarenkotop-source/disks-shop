@@ -835,3 +835,11 @@ body.loading { overflow: hidden; }
 
 /* 3. Плавная подсветка секции, на которую смотрит юзер */
 section { transition: background .6s ease; }
+/* ===== ФИКС: слова в заголовке не разрываются ===== */
+.hero__title .word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.hero__title {
+  word-spacing: normal;
+}
