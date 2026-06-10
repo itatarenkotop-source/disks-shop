@@ -513,3 +513,37 @@ document.querySelectorAll('.btn').forEach(btn => {
     bar.style.width = scrolled + '%';
   });
 })();
+// 2. Кастомный курсор
+(function customCursor() {
+  if (window.innerWidth < 768 || 'ontouchstart' in window) return;
+
+  const dot = document.createElement('div');
+  const ring = document.createElement('div');
+  dot.className = 'cursor-dot';
+  ring.className = 'cursor-ring';
+  document.body.appendChild(dot);
+  document.body.appendChild(ring);
+
+  let rx = 0, ry = 0, mx = 0, my = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px';
+    dot.style.top = my + 'px';
+  });
+
+  // плавное "догоняющее" кольцо
+  (function animate() {
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animate);
+  })();
+
+  // увеличение над кликабельным
+  document.querySelectorAll('a, button, .btn, .card').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('grow'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('grow'));
+  });
+})();
