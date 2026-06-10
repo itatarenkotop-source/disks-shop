@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURUM WHEELS — Premium Forged Wheels</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="noise"></div>
+
+    <!-- ВИДЕО-ФОН -->
+    <div class="video-bg">
+        <video autoplay muted loop playsinline poster="https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=1920">
+            <source src="https://cdn.coverr.co/videos/coverr-driving-on-the-highway-at-night-5244/1080p.mp4" type="video/mp4">
+            <source src="https://cdn.coverr.co/videos/coverr-driving-a-car-at-night-1573/1080p.mp4" type="video/mp4">
+        </video>
+        <div class="video-tint"></div>
+    </div>
+
+    <!-- ШАПКА -->
+    <header class="header" id="header">
+        <div class="container header-inner">
+            <div class="logo">AURUM</div>
+            <nav class="nav-links">
+                <a href="#catalog">Коллекция</a>
+                <a href="#philosophy">Философия</a>
+                <a href="#order">Подбор</a>
+                <a href="#contacts">Контакты</a>
+            </nav>
+            <button class="cart-btn" onclick="toggleCart()">
+                Корзина <span class="cart-line">/</span> <span id="cart-count">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero panel">
+        <div class="container hero-content">
+            <div class="hero-label split">Forged in Asia · Driven Worldwide</div>
+            <h1 class="hero-title">
+                <span class="line"><span>ИСКУССТВО</span></span>
+                <span class="line"><span>В КАЖДОЙ ДЕТАЛИ</span></span>
+            </h1>
+            <p class="hero-sub split">Кованые и литые диски премиум-класса из Японии, Кореи и Китая.<br>Инженерное совершенство для тех, кто чувствует дорогу.</p>
+            <div class="hero-buttons split">
+                <a href="#catalog" class="btn btn-primary">Смотреть коллекцию</a>
+                <a href="#order" class="btn btn-outline">Индивидуальный подбор</a>
+            </div>
+        </div>
+        <div class="scroll-line"><span></span></div>
+    </section>
+
+    <!-- МАРКИЗ-ЛЕНТА -->
+    <div class="marquee">
+        <div class="marquee-track">
+            <span>VOSSEN</span><span>·</span><span>BBS</span><span>·</span><span>RAYS</span><span>·</span><span>WORK</span><span>·</span><span>ENKEI</span><span>·</span><span>HRE</span><span>·</span>
+            <span>VOSSEN</span><span>·</span><span>BBS</span><span>·</span><span>RAYS</span><span>·</span><span>WORK</span><span>·</span><span>ENKEI</span><span>·</span><span>HRE</span><span>·</span>
+        </div>
+    </div>
+
+    <!-- КОЛЛЕКЦИЯ -->
+    <section id="catalog" class="section panel">
+        <div class="container">
+            <div class="section-head reveal">
+                <span class="section-num">01</span>
+                <h2 class="section-title">Коллекция</h2>
+            </div>
+            <p class="section-sub reveal">Каждый диск — результат точной инженерии и безупречного дизайна.</p>
+
+            <div class="filters reveal">
+                <select id="filter-diameter" onchange="filterProducts()">
+                    <option value="all">Все диаметры</option>
+                    <option value="15">R15</option>
+                    <option value="16">R16</option>
+                    <option value="17">R17</option>
+                    <option value="18">R18</option>
+                </select>
+                <select id="filter-type" onchange="filterProducts()">
+                    <option value="all">Все типы</option>
+                    <option value="Литые">Литые</option>
+                    <option value="Кованые">Кованые</option>
+                    <option value="Штампованные">Штампованные</option>
+                </select>
+            </div>
+
+            <div class="products" id="products"></div>
+        </div>
+    </section>
+
+    <!-- ФИЛОСОФИЯ -->
+    <section id="philosophy" class="section philosophy panel">
+        <div class="container philosophy-grid">
+            <div class="philosophy-text reveal">
+                <span class="section-num">02</span>
+                <h2 class="section-title">Философия совершенства</h2>
+                <p>Мы работаем напрямую с заводами Азии, где традиции ковки металла сочетаются с передовыми технологиями. Каждый диск проходит многоступенчатый контроль качества.</p>
+                <div class="stats">
+                    <div class="stat"><span class="stat-num" data-target="12">0</span><span class="stat-label">лет на рынке</span></div>
+                    <div class="stat"><span class="stat-num" data-target="8500">0</span><span class="stat-label">довольных клиентов</span></div>
+                    <div class="stat"><span class="stat-num" data-target="100">0</span><span class="stat-label">% гарантия</span></div>
+                </div>
+            </div>
+            <div class="philosophy-features reveal">
+                <div class="feature"><h3>Прямые поставки</h3><p>Без посредников и переплат — напрямую от производителя.</p></div>
+                <div class="feature"><h3>Сертификация</h3><p>Каждая партия подтверждена сертификатами качества.</p></div>
+                <div class="feature"><h3>Доставка по РФ</h3><p>Бережная логистика в любой город за 3–7 дней.</p></div>
+                <div class="feature"><h3>Персональный подбор</h3><p>Эксперт подберёт диски точно под ваш автомобиль.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ФОРМА -->
+    <section id="order" class="section panel">
+        <div class="container">
+            <div class="order-box reveal">
+                <div class="section-head" style="justify-content:center">
+                    <span class="section-num">03</span>
+                    <h2 class="section-title">Индивидуальный подбор</h2>
+                </div>
+                <p class="section-sub">Оставьте заявку — эксперт свяжется с вами в течение 15 минут.</p>
+                <form class="order-form" onsubmit="submitForm(event)">
+                    <input type="text" placeholder="Имя" required>
+                    <input type="tel" placeholder="Телефон" required>
+                    <input type="text" placeholder="Марка и модель автомобиля">
+                    <button type="submit" class="btn btn-primary full">Отправить заявку</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПОДВАЛ -->
+    <footer id="contacts" class="footer panel">
+        <div class="container footer-grid">
+            <div class="logo">AURUM</div>
+            <div class="footer-col">
+                <span>Контакты</span>
+                <p>+7 (900) 000-00-00</p>
+                <p>info@aurumwheels.ru</p>
+            </div>
+            <div class="footer-col">
+                <span>Режим работы</span>
+                <p>Пн–Вс: 09:00 — 21:00</p>
+                <p>Москва, ул. Примерная, 1</p>
+            </div>
+        </div>
+        <div class="container copy">© 2024 AURUM WHEELS. Premium Forged Wheels.</div>
+    </footer>
+
+    <!-- КОРЗИНА -->
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+    <aside class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Корзина</h3>
+            <button onclick="toggleCart()">Закрыть</button>
+        </div>
+        <div id="cart-items"></div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>Итого</span><span id="cart-total">0 ₽</span></div>
+            <button class="btn btn-primary full" onclick="checkout()">Оформить заказ</button>
+        </div>
+    </aside>
+
+    <script src="script.js"></script>
+</body>
+</html>
