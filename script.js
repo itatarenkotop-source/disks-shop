@@ -145,3 +145,21 @@ const numObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.6 });
 
 document.querySelectorAll('.feature__num').forEach(el => numObserver.observe(el));
+/* ===== ПАРАЛЛАКС HERO (плавный, для мобильных тоже) ===== */
+const hero = document.querySelector('.hero');
+
+// background-attachment: fixed не всегда работает на мобильных,
+// поэтому делаем мягкий параллакс через JS
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const y = window.scrollY;
+      if (hero && y < window.innerHeight) {
+        hero.style.backgroundPosition = `center ${y * 0.4}px`;
+      }
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
