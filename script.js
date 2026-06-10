@@ -454,3 +454,33 @@ if (heroBlock && !document.querySelector('.scroll-hint')) {
     }, 1900);
   });
 })();
+/* ===== МИКРО-ОТКЛИК v7 ===== */
+
+// 1. Ripple-волна на кнопках при клике
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('click', function (e) {
+    const r = this.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    const size = Math.max(r.width, r.height);
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - r.left - size / 2) + 'px';
+    ripple.style.top = (e.clientY - r.top - size / 2) + 'px';
+    this.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+  });
+});
+
+// 2. Пульс цифр после накрутки (дополняет счётчики из v6)
+(function pulseCounters() {
+  const nums = document.querySelectorAll('.feature__num');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('counted'), 1600);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.6 });
+  nums.forEach(n => io.observe(n));
+})();
