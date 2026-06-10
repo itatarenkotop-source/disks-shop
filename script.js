@@ -342,18 +342,17 @@ if (heroBlock && !document.querySelector('.scroll-hint')) {
   });
 })();
 
-// 3. Заголовок Hero — буквы анимируются, но слова НЕ разрываются
+// 3. Заголовок Hero — буквы влетают, слова с явными пробелами
 (function splitHeroTitle() {
   const title = document.querySelector('.hero__title');
   if (!title || title.dataset.split) return;
   title.dataset.split = '1';
 
-  const words = title.textContent.trim().split(' ');
+  const words = title.textContent.trim().split(/\s+/);
   title.innerHTML = '';
   let charIndex = 0;
 
   words.forEach((word, w) => {
-    // обёртка слова — неразрывная
     const wordSpan = document.createElement('span');
     wordSpan.className = 'word';
 
@@ -368,9 +367,12 @@ if (heroBlock && !document.querySelector('.scroll-hint')) {
 
     title.appendChild(wordSpan);
 
-    // пробел между словами (обычный, для переноса между словами)
+    // явный видимый пробел между словами
     if (w < words.length - 1) {
-      title.appendChild(document.createTextNode(' '));
+      const space = document.createElement('span');
+      space.className = 'space';
+      space.innerHTML = '&nbsp;';
+      title.appendChild(space);
     }
   });
 })();
