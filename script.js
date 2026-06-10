@@ -1,10 +1,10 @@
 const products = [
-    { id:1, name:"Vossen CV3", type:"Литые", diameter:18, price:24900, img:"https://images.pexels.com/photos/3954425/pexels-photo-3954425.jpeg?auto=compress&cs=tinysrgb&w=600" },
-    { id:2, name:"BBS LM", type:"Кованые", diameter:17, price:38900, img:"https://images.pexels.com/photos/244553/pexels-photo-244553.jpeg?auto=compress&cs=tinysrgb&w=600" },
-    { id:3, name:"Enkei RPF1", type:"Литые", diameter:16, price:15900, img:"https://images.pexels.com/photos/2127733/pexels-photo-2127733.jpeg?auto=compress&cs=tinysrgb&w=600" },
-    { id:4, name:"Work Emotion", type:"Кованые", diameter:18, price:42900, img:"https://images.pexels.com/photos/1719647/pexels-photo-1719647.jpeg?auto=compress&cs=tinysrgb&w=600" },
-    { id:5, name:"Replica Toyota", type:"Штампованные", diameter:15, price:8900, img:"https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=600" },
-    { id:6, name:"Rays TE37", type:"Кованые", diameter:17, price:35900, img:"https://images.pexels.com/photos/3786091/pexels-photo-3786091.jpeg?auto=compress&cs=tinysrgb&w=600" },
+    { id:1, name:"Vossen CV3", type:"Литые", diameter:18, price:24900, img:"disk1.jpg" },
+    { id:2, name:"BBS LM", type:"Кованые", diameter:17, price:38900, img:"disk2.jpg" },
+    { id:3, name:"Enkei RPF1", type:"Литые", diameter:16, price:15900, img:"disk3.jpg" },
+    { id:4, name:"Work Emotion", type:"Кованые", diameter:18, price:42900, img:"disk4.jpg" },
+    { id:5, name:"Replica Toyota", type:"Штампованные", diameter:15, price:8900, img:"disk5.jpg" },
+    { id:6, name:"Rays TE37", type:"Кованые", diameter:17, price:35900, img:"disk6.jpg" },
 ];
 
 let cart = [];
@@ -36,6 +36,7 @@ function renderProducts(list) {
         `;
         container.appendChild(card);
     });
+    initTilt();
 }
 
 function filterProducts() {
@@ -166,14 +167,24 @@ function observeStats() {
     document.querySelectorAll('.stat-num').forEach(el => statObserver.observe(el));
 }
 
-window.addEventListener('load', () => {
-    const video = document.querySelector('.video-bg video');
-    if (video) {
-        video.play().catch(() => {
-            console.log('Видео не запустилось автоматически — показан постер.');
+/* ===== 3D-НАКЛОН КАРТОЧЕК ПРИ НАВЕДЕНИИ ===== */
+function initTilt() {
+    document.querySelectorAll('.product-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const cx = rect.width / 2;
+            const cy = rect.height / 2;
+            const rotX = ((y - cy) / cy) * -6;
+            const rotY = ((x - cx) / cx) * 6;
+            card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-6px)`;
         });
-    }
-});
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(900px) rotateX(0) rotateY(0) translateY(0)';
+        });
+    });
+}
 
 renderProducts(products);
 observePanels();
