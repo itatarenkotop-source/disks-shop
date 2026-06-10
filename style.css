@@ -856,3 +856,28 @@ section { transition: background .6s ease; }
   z-index: 99999;
   transition: width .1s linear;
 }
+/* 2. Кастомный курсор */
+@media (min-width: 768px) {
+  .cursor-dot, .cursor-ring {
+    position: fixed;
+    top: 0; left: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-dot {
+    width: 6px; height: 6px;
+    background: var(--gold);
+  }
+  .cursor-ring {
+    width: 34px; height: 34px;
+    border: 1.5px solid rgba(201,162,75,.6);
+    transition: width .25s, height .25s, background .25s, border-color .25s;
+  }
+  .cursor-ring.grow {
+    width: 60px; height: 60px;
+    background: rgba(201,162,75,.12);
+    border-color: var(--gold);
+  }
+}
