@@ -835,13 +835,14 @@ body.loading { overflow: hidden; }
 
 /* 3. Плавная подсветка секции, на которую смотрит юзер */
 section { transition: background .6s ease; }
-/* ===== ФИКС: слова в заголовке не разрываются ===== */
+/* ===== ФИКС v2: пробелы между словами в заголовке ===== */
 .hero__title .word {
   display: inline-block;
   white-space: nowrap;
 }
-.hero__title {
-  word-spacing: normal;
+.hero__title .space {
+  display: inline-block;
+  width: 0.3em;   /* ширина пробела — можно увеличить до 0.4em */
 }
 /* ===== СКВОЗНАЯ НИТЬ v8 ===== */
 
