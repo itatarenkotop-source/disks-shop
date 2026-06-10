@@ -550,3 +550,120 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 @media (max-width: 600px) {
   .to-top { left: 16px !important; bottom: 16px !important; }
 }
+/* ===== ЖИВЫЕ ЭФФЕКТЫ v5 (полный, со всеми фиксами) ===== */
+
+/* --- ФИКС: кнопка "наверх" слева, чтобы не мешала мессенджерам --- */
+.to-top {
+  left: 24px !important;
+  right: auto !important;
+  bottom: 24px !important;
+}
+
+/* --- Плавный переход для параллакса текста Hero --- */
+.hero__inner {
+  transition: transform .25s ease-out;
+}
+
+/* 1. Анимированные золотые частицы в Hero (движение в кадре!) */
+.hero__particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero__particles span {
+  position: absolute;
+  bottom: -10px;
+  width: 4px;
+  height: 4px;
+  background: var(--gold);
+  border-radius: 50%;
+  opacity: 0;
+  box-shadow: 0 0 8px rgba(201,162,75,.8);
+  animation: floatUp linear infinite;
+}
+@keyframes floatUp {
+  0%   { transform: translateY(0) scale(1); opacity: 0; }
+  10%  { opacity: .8; }
+  90%  { opacity: .5; }
+  100% { transform: translateY(-105vh) scale(.3); opacity: 0; }
+}
+
+/* 2. Медленный "живой" зум фона Hero (кадр дышит) */
+.hero {
+  animation: heroZoom 1.6s ease-out both, heroBreath 22s ease-in-out 1.6s infinite alternate;
+}
+@keyframes heroBreath {
+  from { background-size: cover; }
+  to   { background-size: 112%; }
+}
+
+/* 3. Светящаяся бегущая рамка на медиа "О нас" */
+.about__media {
+  position: relative;
+}
+.about__media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  padding: 2px;
+  background: linear-gradient(120deg, transparent, var(--gold), transparent);
+  background-size: 250% 250%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  animation: borderFlow 4s linear infinite;
+  z-index: 2;
+  pointer-events: none;
+}
+@keyframes borderFlow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* 4. Магнитное свечение за курсором в каталоге */
+.catalog {
+  position: relative;
+}
+.catalog__glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,162,75,.10) 0%, transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  transition: opacity .4s;
+  opacity: 0;
+}
+.catalog .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* 5. Пульсация золотой линии под заголовком Hero */
+.hero__title::after {
+  animation: lineGlow 2.5s ease-in-out infinite;
+}
+@keyframes lineGlow {
+  0%, 100% { box-shadow: 0 0 18px rgba(201,162,75,.55); width: 90px; }
+  50%      { box-shadow: 0 0 28px rgba(201,162,75,.9);  width: 120px; }
+}
+
+/* --- Уважение к настройкам пользователя --- */
+@media (prefers-reduced-motion: reduce) {
+  .hero { animation: heroZoom 1.6s ease-out both; }
+  .hero__particles,
+  .about__media::before,
+  .catalog__glow,
+  .hero__title::after { animation: none; }
+}
+
+/* --- Адаптив --- */
+@media (max-width: 600px) {
+  .to-top { left: 16px !important; bottom: 16px !important; }
+  .catalog__glow { display: none; }
+}
