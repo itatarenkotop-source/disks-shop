@@ -302,3 +302,123 @@ if (heroBlock && !document.querySelector('.scroll-hint')) {
     inner.style.transform = '';
   });
 })();
+/* ===== ТОП-ЭФФЕКТЫ v6 ===== */
+
+// 1. MAGNETIC-кнопки (тянутся к курсору)
+(function magneticBtns() {
+  if (window.innerWidth < 768) return;
+  document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const r = btn.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width / 2;
+      const y = e.clientY - r.top - r.height / 2;
+      btn.style.transform = `translate(${x * 0.35}px, ${y * 0.45}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = '';
+    });
+  });
+})();
+
+// 2. 3D-наклон карточек + spotlight за курсором
+(function tiltCards() {
+  if (window.innerWidth < 768) return;
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width;
+      const py = (e.clientY - r.top) / r.height;
+      const rotY = (px - 0.5) * 10;   // наклон по X
+      const rotX = (0.5 - py) * 10;   // наклон по Y
+      card.style.transform =
+        `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-6px)`;
+      // spotlight
+      card.style.setProperty('--mx', (px * 100) + '%');
+      card.style.setProperty('--my', (py * 100) + '%');
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+})();
+
+// 3. Заголовок Hero — разбиваем на буквы и анимируем
+(function splitHeroTitle() {
+  const title = document.querySelector('.hero__title');
+  if (!title || title.dataset.split) return;
+  title.dataset.split = '1';
+
+  const text = title.textContent;
+  title.innerHTML = '';
+  [...text].forEach((ch, i) => {
+    const span = document.createElement('span');
+    span.className = 'char';
+    span.textContent = ch === ' ' ? '\u00A0' : ch;
+    span.style.animationDelay = (0.4 + i * 0.03) + 's';
+    title.appendChild(span);
+  });
+})();
+
+// 4. Mask-reveal + draw-line через IntersectionObserver
+(function scrollReveals() {
+  // навешиваем классы автоматически
+  document.querySelectorAll('.about__media, .contact__inner')
+    .forEach(el => el.classList.add('mask-reveal'));
+
+  // линии между секциями
+  document.querySelectorAll('.features, .catalog, .about, .lead, .contact')
+    .forEach(sec => {
+      const line = document.createElement('div');
+      line.className = 'draw-line';
+      sec.parentNode.insertBefore(line, sec);
+    });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('played');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.25 });
+
+  document.querySelectorAll('.mask-reveal, .draw-line')
+    .forEach(el => io.observe(el));
+})();
+
+// 5. АНИМАЦИЯ СЧЁТЧИКОВ (цифры накручиваются от 0)
+(function animateCounters() {
+  const nums = document.querySelectorAll('.feature__num');
+  if (!nums.length) return;
+
+  const run = (el) => {
+    const raw = el.textContent.trim();
+    const target = parseFloat(raw.replace(/[^\d.]/g, ''));
+    const suffix = raw.replace(/[\d.\s]/g, ''); // +, лет, % и т.д.
+    if (isNaN(target)) return;
+
+    let cur = 0;
+    const dur = 1600;
+    const start = performance.now();
+
+    const tick = (now) => {
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+      cur = target * eased;
+      el.textContent = (target % 1 === 0 ? Math.round(cur) : cur.toFixed(1)) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        run(e.target);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.6 });
+
+  nums.forEach(n => io.observe(n));
+})();
