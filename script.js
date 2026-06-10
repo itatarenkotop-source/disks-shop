@@ -186,8 +186,99 @@ function initTilt() {
     });
 }
 
+/* ===== ПЕЧАТАЮЩИЙСЯ ТЕКСТ В HERO ===== */
+function typeText(el, text, speed, callback) {
+    let i = 0;
+    function step() {
+        if (i <= text.length) {
+            el.textContent = text.slice(0, i);
+            i++;
+            setTimeout(step, speed);
+        } else if (callback) {
+            callback();
+        }
+    }
+    step();
+}
+
+function startTyping() {
+    const line1 = document.getElementById('typed-1');
+    const line2 = document.getElementById('typed-2');
+    if (!line1 || !line2) return;
+
+    // мигающий курсор на второй строке
+    const cursor = document.createElement('span');
+    cursor.className = 'typed-cursor';
+    cursor.innerHTML = '&nbsp;';
+
+    line1.parentElement.appendChild(cursor);
+
+    typeText(line1, 'ИСКУССТВО', 80, () => {
+        // переносим курсор на вторую строку
+        line2.parentElement.appendChild(cursor);
+        typeText(line2, 'В КАЖДОЙ ДЕТАЛИ', 80, () => {
+            setTimeout(() => cursor.remove(), 600);
+        });
+    });
+}
+
+/* ===== КАСТОМНЫЙ КУРСОР ===== */
+function initCursor() {
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    if (!dot || !ring) return;
+
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.left = mouseX + 'px';
+        dot.style.top = mouseY + 'px';
+    });
+
+    // плавное "догоняющее" движение кольца
+    function animateRing() {
+        ringX += (mouseX - ringX) * 0.18;
+        ringY += (mouseY - ringY) * 0.18;
+        ring.style.left = ringX + 'px';
+        ring.style.top = ringY + 'px';
+        requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    // увеличение при наведении на кликабельное
+    const hoverTargets = 'a, button, select, input, .product-card, .add-btn';
+    document.addEventListener('mouseover', (e) => {
+        if (e.target.closest(hoverTargets)) {
+            ring.classList.add('hover');
+            dot.classList.add('hover');
+        }
+    });
+    document.addEventListener('mouseout', (e) => {
+        if (e.target.closest(hoverTargets)) {
+            ring.classList.remove('hover');
+            dot.classList.remove('hover');
+        }
+    });
+}
+
+/* ===== СКРЫТИЕ ЗАГРУЗОЧНОГО ЭКРАНА ===== */
+function hidePreloader() {
+    const preloader = document.getElementById('preloader');
+    if (!preloader) return;
+    setTimeout(() => {
+        preloader.classList.add('hide');
+        startTyping(); // печать стартует после ухода загрузки
+    }, 2000);
+}
+
+/* ===== ЗАПУСК ===== */
 renderProducts(products);
 observePanels();
 observeReveals();
 observeStats();
 updateCart();
+initCursor();
+window.addEventListener('load', hidePreloader);
