@@ -243,3 +243,62 @@ if (heroBlock && !document.querySelector('.scroll-hint')) {
     if (next) next.scrollIntoView({ behavior: 'smooth' });
   });
 }
+/* ===== ЖИВЫЕ ЭФФЕКТЫ v5 ===== */
+
+// 1. Золотые частицы в Hero
+(function createParticles() {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+
+  const layer = document.createElement('div');
+  layer.className = 'hero__particles';
+
+  const count = window.innerWidth < 600 ? 14 : 28;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('span');
+    const size = Math.random() * 3 + 2;
+    p.style.left = Math.random() * 100 + '%';
+    p.style.width = size + 'px';
+    p.style.height = size + 'px';
+    p.style.animationDuration = (Math.random() * 12 + 10) + 's';
+    p.style.animationDelay = (Math.random() * 8) + 's';
+    layer.appendChild(p);
+  }
+  hero.insertBefore(layer, hero.firstChild);
+})();
+
+// 2. Магнитное свечение в каталоге
+(function catalogGlow() {
+  const catalog = document.querySelector('.catalog');
+  if (!catalog || window.innerWidth < 768) return;
+
+  const glow = document.createElement('div');
+  glow.className = 'catalog__glow';
+  catalog.appendChild(glow);
+
+  catalog.addEventListener('mousemove', (e) => {
+    const rect = catalog.getBoundingClientRect();
+    glow.style.left = (e.clientX - rect.left) + 'px';
+    glow.style.top = (e.clientY - rect.top) + 'px';
+    glow.style.opacity = '1';
+  });
+  catalog.addEventListener('mouseleave', () => {
+    glow.style.opacity = '0';
+  });
+})();
+
+// 3. Параллакс текста Hero за мышкой
+(function heroParallax() {
+  const hero = document.querySelector('.hero');
+  const inner = document.querySelector('.hero__inner');
+  if (!hero || !inner || window.innerWidth < 768) return;
+
+  hero.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 14;
+    const y = (e.clientY / window.innerHeight - 0.5) * 14;
+    inner.style.transform = `translate(${x}px, ${y}px)`;
+  });
+  hero.addEventListener('mouseleave', () => {
+    inner.style.transform = '';
+  });
+})();
