@@ -163,3 +163,70 @@ window.addEventListener('scroll', () => {
     ticking = true;
   }
 });
+/* ===== ЭФФЕКТЫ v3 ===== */
+
+// --- Прогресс-бар прокрутки ---
+const progressBar = document.createElement('div');
+progressBar.className = 'scroll-progress';
+document.body.appendChild(progressBar);
+
+// --- Кнопка "наверх" ---
+const toTop = document.createElement('button');
+toTop.className = 'to-top';
+toTop.setAttribute('aria-label', 'Наверх');
+toTop.innerHTML = '↑';
+document.body.appendChild(toTop);
+
+toTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const percent = (scrollTop / docHeight) * 100;
+  progressBar.style.width = percent + '%';
+
+  if (scrollTop > 400) toTop.classList.add('show');
+  else toTop.classList.remove('show');
+});
+
+
+// --- Кастомный курсор (только для десктопа) ---
+if (window.matchMedia('(min-width: 769px)').matches) {
+  const cursor = document.createElement('div');
+  cursor.className = 'cursor-dot';
+  document.body.appendChild(cursor);
+
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+
+  // увеличение на интерактивных элементах
+  document.querySelectorAll('a, button, .card, .fc').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('is-hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('is-hover'));
+  });
+}
+
+
+// --- 3D-наклон карточек (эффект "tilt") ---
+if (window.matchMedia('(min-width: 769px)').matches) {
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const rotateX = ((y - cy) / cy) * -6;  // наклон по вертикали
+      const rotateY = ((x - cx) / cx) * 6;   // наклон по горизонтали
+      card.style.transform =
+        `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+}
