@@ -1,4 +1,3 @@
-// ===== БАЗА ТОВАРОВ (надёжные картинки с Pexels) =====
 const products = [
     { id:1, name:"Vossen CV3", type:"Литые", diameter:18, price:24900, img:"https://images.pexels.com/photos/3954425/pexels-photo-3954425.jpeg?auto=compress&cs=tinysrgb&w=600" },
     { id:2, name:"BBS LM", type:"Кованые", diameter:17, price:38900, img:"https://images.pexels.com/photos/244553/pexels-photo-244553.jpeg?auto=compress&cs=tinysrgb&w=600" },
@@ -10,7 +9,6 @@ const products = [
 
 let cart = [];
 
-// ===== ОТОБРАЗИТЬ ТОВАРЫ =====
 function renderProducts(list) {
     const container = document.getElementById('products');
     container.innerHTML = '';
@@ -40,7 +38,6 @@ function renderProducts(list) {
     });
 }
 
-// ===== ФИЛЬТРЫ =====
 function filterProducts() {
     const d = document.getElementById('filter-diameter').value;
     const t = document.getElementById('filter-type').value;
@@ -51,7 +48,6 @@ function filterProducts() {
     renderProducts(filtered);
 }
 
-// ===== КОРЗИНА =====
 function addToCart(id) {
     cart.push(products.find(p => p.id === id));
     updateCart();
@@ -106,14 +102,12 @@ function checkout() {
     toggleCart();
 }
 
-// ===== ФОРМА ЗАЯВКИ =====
 function submitForm(e) {
     e.preventDefault();
     alert('Заявка отправлена! Эксперт перезвонит вам в течение 15 минут.');
     e.target.reset();
 }
 
-// ===== ШАПКА ПРИ ПРОКРУТКЕ =====
 window.addEventListener('scroll', () => {
     const header = document.getElementById('header');
     if (window.scrollY > 60) {
@@ -123,8 +117,6 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// ===== ЭФФЕКТ СМЕНЫ ЭКРАНОВ ПРИ ПРОКРУТКЕ =====
-// Каждая большая секция (.panel) плавно "въезжает" с размытием и масштабом
 const panelObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -137,7 +129,6 @@ function observePanels() {
     document.querySelectorAll('.panel').forEach(el => panelObserver.observe(el));
 }
 
-// ===== АНИМАЦИЯ ПОЯВЛЕНИЯ ВНУТРЕННИХ БЛОКОВ =====
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -151,7 +142,6 @@ function observeReveals() {
     document.querySelectorAll('.reveal:not(.active)').forEach(el => revealObserver.observe(el));
 }
 
-// ===== АНИМАЦИЯ СЧЁТЧИКОВ (СТАТИСТИКА) =====
 const statObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -176,19 +166,15 @@ function observeStats() {
     document.querySelectorAll('.stat-num').forEach(el => statObserver.observe(el));
 }
 
-// ===== СТРАХОВКА: ЕСЛИ ВИДЕО НЕ ЗАГРУЗИЛОСЬ =====
-// Тогда вместо чёрного экрана покажем красивое фото-постер
 window.addEventListener('load', () => {
     const video = document.querySelector('.video-bg video');
     if (video) {
         video.play().catch(() => {
-            // Если браузер заблокировал автозапуск — оставим постер (он уже в poster="")
             console.log('Видео не запустилось автоматически — показан постер.');
         });
     }
 });
 
-// ===== ЗАПУСК =====
 renderProducts(products);
 observePanels();
 observeReveals();
