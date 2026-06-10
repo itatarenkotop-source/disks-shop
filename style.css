@@ -426,3 +426,118 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 @media (prefers-reduced-motion: reduce) {
   .card { transform: none !important; }
 }
+/* ===== ФИКС HERO + НОВЫЕ ЭФФЕКТЫ v4 ===== */
+
+/* 1. Убираем "fixed" — он ломал позицию машины */
+.hero {
+  background-attachment: scroll !important;
+  background-position: center !important;
+  overflow: hidden;
+}
+
+/* 2. Делаем затемнение чуть слабее справа, чтобы машина "дышала" */
+.hero__overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(14,15,17,.90) 0%,
+    rgba(14,15,17,.55) 50%,
+    rgba(14,15,17,.15) 100%
+  ) !important;
+}
+
+/* 3. Плавное появление машины при загрузке (зум) */
+.hero {
+  animation: heroZoom 1.6s ease-out both;
+}
+@keyframes heroZoom {
+  from { background-size: 118%; }
+  to   { background-size: cover; }
+}
+
+/* 4. Текст Hero выезжает по очереди */
+.hero__eyebrow,
+.hero__title,
+.hero__sub,
+.hero__actions {
+  opacity: 0;
+  transform: translateY(28px);
+  animation: heroText .8s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.hero__eyebrow { animation-delay: .3s; }
+.hero__title   { animation-delay: .5s; }
+.hero__sub     { animation-delay: .7s; }
+.hero__actions { animation-delay: .9s; }
+@keyframes heroText {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 5. Золотая сияющая линия под заголовком (в твоём стиле!) */
+.hero__title::after {
+  content: "";
+  display: block;
+  width: 90px;
+  height: 3px;
+  margin-top: 22px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  border-radius: 2px;
+  box-shadow: 0 0 18px rgba(201,162,75,.55);
+}
+
+/* 6. Стрелка "листай вниз" в золотом стиле */
+.scroll-hint {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(201,162,75,.4);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--gold);
+  font-size: 22px;
+  cursor: pointer;
+  animation: heroBounce 2s infinite;
+  transition: background .3s, border-color .3s;
+}
+.scroll-hint:hover {
+  background: rgba(201,162,75,.12);
+  border-color: var(--gold);
+}
+@keyframes heroBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(8px); }
+}
+
+/* 7. Прогресс-бар и кнопку "наверх" перекрашиваем под золото бренда
+      (а то красно-оранжевый выбивался из палитры) */
+.scroll-progress {
+  background: linear-gradient(90deg, var(--gold), var(--gold-light)) !important;
+}
+.to-top {
+  background: var(--surface-2) !important;
+  border: 1px solid var(--line);
+}
+.to-top:hover {
+  background: var(--gold) !important;
+  color: #15110a !important;
+}
+
+/* 8. Курсор и подчёркивание меню — тоже в золото */
+.cursor-dot { border-color: rgba(201,162,75,.8) !important; }
+.cursor-dot.is-hover { background: rgba(201,162,75,.15) !important; }
+.nav a::after { background: var(--gold) !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero { animation: none; }
+  .hero__eyebrow, .hero__title, .hero__sub, .hero__actions {
+    animation: none; opacity: 1; transform: none;
+  }
+  .scroll-hint { animation: none; }
+}
+
+@media (max-width: 600px) {
+  .scroll-hint { display: none; }
+}
