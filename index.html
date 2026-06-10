@@ -3,146 +3,173 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TEREK — Premium Wheels</title>
+<title>TEREK — Премиальные колёсные диски</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="grain"></div>
-
-<div class="cursor"></div>
-<div class="cursor-dot"></div>
-
-<div class="preloader">
-  <div class="preloader__text" data-count>00</div>
-</div>
-
 <header class="header">
-  <a href="#" class="logo">TEREK<span>.</span></a>
-  <nav class="nav">
-    <a href="#catalog">Коллекция</a>
-    <a href="#about">О нас</a>
-    <a href="#contact">Контакты</a>
-  </nav>
+  <div class="container header__inner">
+    <a href="#" class="logo">TEREK</a>
+    <nav class="nav">
+      <a href="#catalog">Коллекция</a>
+      <a href="#about">О нас</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+    <a href="tel:+79141719500" class="header__phone">+7 (914) 171-95-00</a>
+  </div>
 </header>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero__bg"></div>
   <div class="hero__overlay"></div>
-  <div class="hero__content">
-    <h1 class="hero__title">
-      <span class="line"><span data-reveal>КОЛЁСНЫЕ</span></span>
-      <span class="line"><span data-reveal>ДИСКИ</span></span>
-      <span class="line accent"><span data-reveal>ПРЕМИУМ</span></span>
-    </h1>
-    <p class="hero__sub" data-reveal>Эксклюзивные литые и кованые диски.<br>Стиль, который говорит за тебя.</p>
-    <a href="#catalog" class="btn-scroll" data-reveal>
-      <span>Смотреть коллекцию</span>
-      <i></i>
-    </a>
+  <div class="container hero__inner">
+    <span class="hero__eyebrow">Премиальные колёсные диски</span>
+    <h1 class="hero__title">Диски, которые<br>подчёркивают характер</h1>
+    <p class="hero__sub">Кованые и литые диски премиальных брендов. Оригинальное качество, безупречный стиль и установка под ключ.</p>
+    <div class="hero__actions">
+      <a href="#catalog" class="btn btn--primary">Смотреть коллекцию</a>
+      <a href="https://wa.me/79141719500" target="_blank" class="btn btn--ghost">Получить консультацию</a>
+    </div>
   </div>
-  <div class="hero__marquee">
-    <div class="marquee__track">
-      <span>FORGED · CAST · LUXURY · PERFORMANCE · TEREK · FORGED · CAST · LUXURY · PERFORMANCE · TEREK ·</span>
-      <span>FORGED · CAST · LUXURY · PERFORMANCE · TEREK · FORGED · CAST · LUXURY · PERFORMANCE · TEREK ·</span>
+</section>
+
+<!-- ПРЕИМУЩЕСТВА -->
+<section class="features">
+  <div class="container features__grid">
+    <div class="feature">
+      <span class="feature__num">200+</span>
+      <p>моделей в наличии и под заказ</p>
+    </div>
+    <div class="feature">
+      <span class="feature__num">100%</span>
+      <p>оригинальная продукция</p>
+    </div>
+    <div class="feature">
+      <span class="feature__num">10 лет</span>
+      <p>на рынке Дальнего Востока</p>
+    </div>
+    <div class="feature">
+      <span class="feature__num">24/7</span>
+      <p>поддержка и подбор по авто</p>
     </div>
   </div>
 </section>
 
 <!-- КАТАЛОГ -->
 <section class="catalog" id="catalog">
-  <div class="section-head">
-    <span class="section-num" data-reveal>01 / Коллекция</span>
-    <h2 class="section-title"><span data-reveal>Избранное</span></h2>
-  </div>
+  <div class="container">
+    <div class="section-head">
+      <span class="section-tag">Коллекция</span>
+      <h2 class="section-title">Избранные модели</h2>
+      <p class="section-desc">Подобрали лучшее из премиального сегмента — от спортивных кованых до люксовых литых дисков.</p>
+    </div>
 
-  <div class="grid">
-    <article class="card">
-      <div class="card__img"><img src="disk1.jpg" alt="Work Emotion"></div>
-      <div class="card__glow"></div>
-      <div class="card__info">
-        <span class="card__tag">FORGED</span>
-        <h3>Work Emotion T7R</h3>
-        <div class="card__bottom">
-          <span class="card__price">от 89 000 ₽</span>
-          <button class="card__add"><span>+</span></button>
+    <div class="grid">
+      <article class="card">
+        <div class="card__img"><img src="disk1.jpg" alt="Work Emotion T7R"></div>
+        <div class="card__body">
+          <span class="card__tag">Кованые</span>
+          <h3 class="card__title">Work Emotion T7R</h3>
+          <p class="card__desc">Японская ковка для спортивного стиля.</p>
+          <div class="card__foot">
+            <span class="card__price">от 89 000 ₽</span>
+            <a href="https://wa.me/79141719500" target="_blank" class="card__btn">Заказать</a>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
 
-    <article class="card">
-      <div class="card__img"><img src="disk2.jpg" alt="BBS LM"></div>
-      <div class="card__glow"></div>
-      <div class="card__info">
-        <span class="card__tag">CAST</span>
-        <h3>BBS LM Series</h3>
-        <div class="card__bottom">
-          <span class="card__price">от 64 000 ₽</span>
-          <button class="card__add"><span>+</span></button>
+      <article class="card">
+        <div class="card__img"><img src="disk2.jpg" alt="BBS LM Series"></div>
+        <div class="card__body">
+          <span class="card__tag">Литые</span>
+          <h3 class="card__title">BBS LM Series</h3>
+          <p class="card__desc">Легендарная классика на все времена.</p>
+          <div class="card__foot">
+            <span class="card__price">от 64 000 ₽</span>
+            <a href="https://wa.me/79141719500" target="_blank" class="card__btn">Заказать</a>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
 
-    <article class="card">
-      <div class="card__img"><img src="disk3.jpg" alt="Vossen"></div>
-      <div class="card__glow"></div>
-      <div class="card__info">
-        <span class="card__tag">LUXURY</span>
-        <h3>Vossen HF-5</h3>
-        <div class="card__bottom">
-          <span class="card__price">от 112 000 ₽</span>
-          <button class="card__add"><span>+</span></button>
+      <article class="card">
+        <div class="card__img"><img src="disk3.jpg" alt="Vossen HF-5"></div>
+        <div class="card__body">
+          <span class="card__tag">Люкс</span>
+          <h3 class="card__title">Vossen HF-5</h3>
+          <p class="card__desc">Премиальный дизайн для статусных авто.</p>
+          <div class="card__foot">
+            <span class="card__price">от 112 000 ₽</span>
+            <a href="https://wa.me/79141719500" target="_blank" class="card__btn">Заказать</a>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
 
-    <article class="card">
-      <div class="card__img"><img src="disk4.jpg" alt="Rays Volk"></div>
-      <div class="card__glow"></div>
-      <div class="card__info">
-        <span class="card__tag">FORGED</span>
-        <h3>Rays Volk TE37</h3>
-        <div class="card__bottom">
-          <span class="card__price">от 98 000 ₽</span>
-          <button class="card__add"><span>+</span></button>
+      <article class="card">
+        <div class="card__img"><img src="disk4.jpg" alt="Rays Volk TE37"></div>
+        <div class="card__body">
+          <span class="card__tag">Кованые</span>
+          <h3 class="card__title">Rays Volk TE37</h3>
+          <p class="card__desc">Икона автоспорта и лёгкость на дороге.</p>
+          <div class="card__foot">
+            <span class="card__price">от 98 000 ₽</span>
+            <a href="https://wa.me/79141719500" target="_blank" class="card__btn">Заказать</a>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+    </div>
   </div>
 </section>
 
 <!-- О НАС -->
 <section class="about" id="about">
-  <div class="section-head">
-    <span class="section-num" data-reveal>02 / О нас</span>
+  <div class="container about__inner">
+    <div class="about__media"><img src="hero.jpg" alt="TEREK"></div>
+    <div class="about__content">
+      <span class="section-tag">О нас</span>
+      <h2 class="section-title">Превращаем автомобиль<br>в произведение искусства</h2>
+      <p class="about__text">Мы подбираем диски, которые меняют облик машины полностью. Работаем только с проверенными мировыми брендами и гарантируем оригинальное качество каждой модели.</p>
+      <ul class="about__list">
+        <li>Индивидуальный подбор под вашу марку и модель</li>
+        <li>Профессиональная установка и балансировка</li>
+        <li>Гарантия и сопровождение после покупки</li>
+      </ul>
+      <a href="#contact" class="btn btn--primary">Связаться с нами</a>
+    </div>
   </div>
-  <p class="about__text">
-    <span data-reveal-words>Мы подбираем диски, которые превращают автомобиль в произведение искусства. Только проверенные бренды, оригинальное качество и безупречный стиль.</span>
-  </p>
 </section>
 
-<!-- ФУТЕР -->
-<footer class="footer" id="contact">
-  <h2 class="footer__cta"><span data-reveal>Готовы<br>заказать?</span></h2>
-  <div class="footer__grid">
-    <div class="footer__col">
-      <span class="footer__label">Адрес</span>
-      <p>Хабаровск,<br>ул. Вахова, 8В</p>
+<!-- CTA / КОНТАКТЫ -->
+<section class="contact" id="contact">
+  <div class="container contact__inner">
+    <div class="contact__lead">
+      <span class="section-tag">Контакты</span>
+      <h2 class="section-title">Готовы подобрать<br>идеальные диски?</h2>
+      <p class="contact__sub">Напишите или позвоните — поможем с выбором и рассчитаем стоимость под ваш автомобиль.</p>
     </div>
-    <div class="footer__col">
-      <span class="footer__label">Телефон</span>
-      <a href="tel:+79141719500">+7 (914) 171-95-00</a>
-    </div>
-    <div class="footer__col">
-      <span class="footer__label">Telegram</span>
-      <a href="https://t.me/Terek_s" target="_blank">@Terek_s</a>
+    <div class="contact__cards">
+      <div class="contact__card">
+        <span class="contact__label">Адрес</span>
+        <p>Хабаровск, ул. Вахова, 8В</p>
+      </div>
+      <div class="contact__card">
+        <span class="contact__label">Телефон</span>
+        <a href="tel:+79141719500">+7 (914) 171-95-00</a>
+      </div>
+      <div class="contact__card">
+        <span class="contact__label">Telegram</span>
+        <a href="https://t.me/Terek_s" target="_blank">@Terek_s</a>
+      </div>
     </div>
   </div>
-  <div class="footer__bottom">
-    <span>© 2024 TEREK · Premium Wheels</span>
+</section>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <span class="logo">TEREK</span>
+    <span class="footer__copy">© 2024 TEREK · Премиальные колёсные диски</span>
   </div>
 </footer>
 
