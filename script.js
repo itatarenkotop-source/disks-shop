@@ -342,23 +342,38 @@ if (heroBlock && !document.querySelector('.scroll-hint')) {
   });
 })();
 
-// 3. Заголовок Hero — разбиваем на буквы и анимируем
+// 3. Заголовок Hero — буквы анимируются, но слова НЕ разрываются
 (function splitHeroTitle() {
   const title = document.querySelector('.hero__title');
   if (!title || title.dataset.split) return;
   title.dataset.split = '1';
 
-  const text = title.textContent;
+  const words = title.textContent.trim().split(' ');
   title.innerHTML = '';
-  [...text].forEach((ch, i) => {
-    const span = document.createElement('span');
-    span.className = 'char';
-    span.textContent = ch === ' ' ? '\u00A0' : ch;
-    span.style.animationDelay = (0.4 + i * 0.03) + 's';
-    title.appendChild(span);
+  let charIndex = 0;
+
+  words.forEach((word, w) => {
+    // обёртка слова — неразрывная
+    const wordSpan = document.createElement('span');
+    wordSpan.className = 'word';
+
+    [...word].forEach((ch) => {
+      const span = document.createElement('span');
+      span.className = 'char';
+      span.textContent = ch;
+      span.style.animationDelay = (0.4 + charIndex * 0.03) + 's';
+      wordSpan.appendChild(span);
+      charIndex++;
+    });
+
+    title.appendChild(wordSpan);
+
+    // пробел между словами (обычный, для переноса между словами)
+    if (w < words.length - 1) {
+      title.appendChild(document.createTextNode(' '));
+    }
   });
 })();
-
 // 4. Mask-reveal + draw-line через IntersectionObserver
 (function scrollReveals() {
   // навешиваем классы автоматически
