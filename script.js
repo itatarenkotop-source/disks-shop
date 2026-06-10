@@ -499,3 +499,17 @@ document.querySelectorAll('.btn').forEach(btn => {
   }, { threshold: 0.6 });
   nums.forEach(n => io.observe(n));
 })();
+/* ===== СКВОЗНАЯ НИТЬ v8 ===== */
+
+// 1. Прогресс-бар чтения
+(function readProgress() {
+  const bar = document.createElement('div');
+  bar.className = 'read-progress';
+  document.body.appendChild(bar);
+
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = (window.scrollY / h) * 100;
+    bar.style.width = scrolled + '%';
+  });
+})();
